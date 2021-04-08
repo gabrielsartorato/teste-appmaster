@@ -3,12 +3,15 @@ import 'dotenv/config';
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
+
 import AppError from './errors/AppError';
+import { routes } from './routes/index';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(routes);
 
 app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
   if (err instanceof AppError) {
@@ -26,6 +29,6 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
   });
 });
 
-app.listen(process.env.APP_PORT || 3333, () => {
-  console.log(`Server is running at por ${process.env.APP_PORT}`);
+app.listen(3333, () => {
+  console.log('Server is running at port 3333');
 });
