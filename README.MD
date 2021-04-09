@@ -16,7 +16,7 @@ Trata-se de de uma API que busca dados de super-heróis de uma outra API.
 
 Esta rota nos permitirá buscar um herói não só pelo nome, mas por qualquer informação que esteja escrita em qualquer um dos seus atributos de texto.
 
-URL CRIADA: /api/search
+URL CRIADA ex: /api/search?q=Human
 
 - Criar uma rota GET /search que receberá um único atributo (via url) "q" - exemplo: "/search?q=hair"
 - Se o valor de "q" tiver menos de 3 caracteres, retornar um erro com status 400
@@ -29,7 +29,7 @@ URL CRIADA: /api/search
 
 Detalhe de herói
 
-URL CRIADA: /api/hero/A-Bomb
+URL CRIADA ex: /api/hero/A-Bomb
 
 - Criar uma rota GET /hero/{slug}, que irá obter o herói em questão pelo atributo slug
 - Se o herói existir, retornar apenas ele com status 200
