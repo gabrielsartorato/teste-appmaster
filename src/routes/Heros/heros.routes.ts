@@ -5,5 +5,5 @@ export const herosRouter = Router();
 
 const herosController = new HerosController();
 
-herosRouter.post('/search', herosController.index);
+herosRouter.get('/search', herosController.index);
 herosRouter.get('/hero/:slug', herosController.show);

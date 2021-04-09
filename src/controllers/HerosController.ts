@@ -2,14 +2,17 @@ import { Request, Response } from 'express';
 import { DetailHeroService } from '../services/DetailHeroService';
 import { FindHeroService } from '../services/FindHeroService';
 
+interface IQuery {
+  q?: string
+}
 class HerosController {
   async index(request: Request, response: Response): Promise<Response> {
-    const { q } = request.body;
+    const { q }: IQuery = request.query;
     const header = request.header('case-sensitive');
 
     const findHeroService = new FindHeroService();
 
-    if (q.length < 3) {
+    if (!q || q.length < 3) {
       return response
         .status(400)
         .json('Atributo deve conter pelo menos 3 caracteres');
