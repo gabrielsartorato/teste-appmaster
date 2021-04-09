@@ -4,6 +4,6 @@ import { herosRouter } from './Heros/heros.routes';
 
 const routes = Router();
 
-routes.use('/api', herosRouter);
+routes.use('/', herosRouter);
 
 export { routes };
