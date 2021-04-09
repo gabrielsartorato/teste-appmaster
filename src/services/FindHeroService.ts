@@ -5,7 +5,10 @@ import { load, save } from '../providers/states/state';
 import { findInsensitiveHeros } from '../providers/values/insensitive';
 import { findSensitiveHeros } from '../providers/values/sensitive';
 class FindHeroService {
-  public async execute(q: string, header: string): Promise<IHero[]> {
+  public async execute(
+    q: string,
+    header: string | undefined,
+  ): Promise<IHero[]> {
     const checkDataHero = await load();
 
     if (header && header !== 'false' && header !== 'true') {
