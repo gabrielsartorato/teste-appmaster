@@ -2,11 +2,15 @@ import AppError from '../errors/AppError';
 import { IHero } from '../interfaces/hero.interface';
 import { api } from '../providers/http/http';
 import { load, save } from '../providers/states/state';
-import { checkValues } from '../providers/values/insensitive';
-
+import { findInsensitiveHeros } from '../providers/values/insensitive';
+import { findSensitiveHeros } from '../providers/values/sensitive';
 class FindHeroService {
-  public async execute(q: string): Promise<IHero[]> {
+  public async execute(q: string, header: string): Promise<IHero[]> {
     const checkDataHero = await load();
+
+    if (header && header !== 'false' && header !== 'true') {
+      throw new AppError('Header informado está inválido', 400);
+    }
 
     if (checkDataHero.length === 0) {
       const { data } = await api.get('/all.json');
@@ -16,20 +20,9 @@ class FindHeroService {
 
     const heros: IHero[] = await load();
 
-    const findHeros = heros.filter((hero) => {
-      const { name, appearance, biography, work } = hero;
-
-      if (
-        name.localeCompare(q, undefined, {
-          sensitivity: 'accent',
-        }) === 0
-      )
-        return hero;
-
-      if (checkValues(appearance, q)) return hero;
-      if (checkValues(biography, q)) return hero;
-      if (checkValues(work, q)) return hero;
-    });
+    const findHeros = header
+      ? findSensitiveHeros(heros, q)
+      : findInsensitiveHeros(heros, q);
 
     if (findHeros.length === 0) {
       throw new AppError('', 204);

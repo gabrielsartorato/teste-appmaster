@@ -5,7 +5,7 @@ import { FindHeroService } from '../services/FindHeroService';
 class HerosController {
   async index(request: Request, response: Response): Promise<Response> {
     const { q } = request.body;
-    const { sensitive } = request.headers;
+    const header = request.header('case-sensitive');
 
     const findHeroService = new FindHeroService();
 
@@ -15,7 +15,7 @@ class HerosController {
         .json('Atributo deve conter pelo menos 3 caracteres');
     }
 
-    const heros = await findHeroService.execute(q);
+    const heros = await findHeroService.execute(q, header);
 
     return response.json(heros);
   }

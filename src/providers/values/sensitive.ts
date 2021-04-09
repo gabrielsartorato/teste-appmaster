@@ -9,24 +9,15 @@ function checkValues(values: object, q: string) {
 
     if (!value) continue;
 
-    const check = value.localeCompare(q, undefined, {
-      sensitivity: 'accent',
-    });
-
-    if (check === 0) return true;
+    if (value === q) return true;
   }
 }
 
-function findInsensitiveHeros(heros: IHero[], q: string) {
+function findSensitiveHeros(heros: IHero[], q: string) {
   return heros.filter((hero) => {
     const { name, appearance, biography, work } = hero;
 
-    if (
-      name.localeCompare(q, undefined, {
-        sensitivity: 'accent',
-      }) === 0
-    )
-      return hero;
+    if (name === q) return hero;
 
     if (checkValues(appearance, q)) return hero;
     if (checkValues(biography, q)) return hero;
@@ -34,4 +25,4 @@ function findInsensitiveHeros(heros: IHero[], q: string) {
   });
 }
 
-export { findInsensitiveHeros };
+export { findSensitiveHeros };
