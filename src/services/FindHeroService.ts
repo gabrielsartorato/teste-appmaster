@@ -11,6 +11,8 @@ class FindHeroService {
   ): Promise<IHero[]> {
     const checkDataHero = await load();
 
+    console.log(q, header)
+
     if (header && header !== 'false' && header !== 'true') {
       throw new AppError('Header informado está inválido', 400);
     }
@@ -23,7 +25,7 @@ class FindHeroService {
 
     const heros: IHero[] = await load();
 
-    const findHeros = header
+    const findHeros = header === 'true'
       ? findSensitiveHeros(heros, q)
       : findInsensitiveHeros(heros, q);
 

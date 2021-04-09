@@ -12,6 +12,8 @@ class HerosController {
 
     const findHeroService = new FindHeroService();
 
+    console.log(q);
+
     if (!q || q.length < 3) {
       return response
         .status(400)
