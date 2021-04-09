@@ -32,7 +32,6 @@ class FindHeroService {
     });
 
     if (findHeros.length === 0) {
-      console.log('aqui');
       throw new AppError('', 204);
     }
 

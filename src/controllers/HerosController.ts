@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { DetailHeroService } from '../services/DetailHeroService';
 import { FindHeroService } from '../services/FindHeroService';
 
 class HerosController {
@@ -17,6 +18,16 @@ class HerosController {
     const heros = await findHeroService.execute(q);
 
     return response.json(heros);
+  }
+
+  async show(request: Request, response: Response): Promise<Response> {
+    const { slug } = request.params;
+
+    const detailHeroService = new DetailHeroService();
+
+    const hero = await detailHeroService.execute(slug);
+
+    return response.json(hero);
   }
 }
 
