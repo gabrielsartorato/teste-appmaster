@@ -7,7 +7,7 @@ class DetailHeroService {
   public async execute(slug: string): Promise<IHero> {
     const checkDataHero = await load();
 
-    if (checkDataHero.length === 0) {
+    if (!checkDataHero) {
       const { data } = await api.get('/all.json');
 
       save(data);
@@ -22,7 +22,7 @@ class DetailHeroService {
     );
 
     if (!hero) {
-      throw new AppError('Hério não encontrado', 404);
+      throw new AppError('Herói não encontrado', 404);
     }
 
     return hero;
