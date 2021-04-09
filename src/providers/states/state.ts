@@ -9,6 +9,7 @@ function save(content: any) {
 }
 
 function load() {
+  if (!fs.existsSync(contentFilePath)) return
   const fileBuffer = fs.readFileSync(contentFilePath, 'utf-8');
   const contentJson = JSON.parse(fileBuffer || '[]');
   return contentJson;

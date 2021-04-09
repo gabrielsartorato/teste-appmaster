@@ -1,3 +1,5 @@
+import path from 'path';
+
 import AppError from '../errors/AppError';
 import { IHero } from '../interfaces/hero.interface';
 import { api } from '../providers/http/http';
@@ -9,13 +11,13 @@ class FindHeroService {
     q: string,
     header: string | undefined,
   ): Promise<IHero[]> {
-    const checkDataHero = await load();
-
     if (header && header !== 'false' && header !== 'true') {
       throw new AppError('Header informado está inválido', 400);
     }
 
-    if (checkDataHero.length === 0) {
+    const checkDataHero = await load();
+
+    if (!checkDataHero) {
       const { data } = await api.get('/all.json');
 
       save(data);
