@@ -26,6 +26,10 @@ class HerosController {
   async show(request: Request, response: Response): Promise<Response> {
     const { slug } = request.params;
 
+    if (!slug) {
+      return response.status(400).json('Slug deve ser informado');
+    }
+
     const detailHeroService = new DetailHeroService();
 
     const hero = await detailHeroService.execute(slug);
