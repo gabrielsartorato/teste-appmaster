@@ -29,6 +29,6 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
   });
 });
 
-app.listen(process.env.APP_PORT || 3333, () => {
+app.listen(process.env.PORT || 3333, () => {
   console.log('Server is running at port 3333');
 });
